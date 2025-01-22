@@ -10,10 +10,10 @@ import (
 )
 
 type config struct {
-	caughtPokemon    map[string]pokeapi.Pokemon
 	pokeapiClient    pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string
+	caughtPokemon    map[string]pokeapi.Pokemon
 }
 
 func startPepl(cfg *config) {
@@ -86,6 +86,11 @@ func getCommands() map[string]cliCommand {
 			name:        "catch",
 			description: "Try catch a Pokemon, by using 'catch <Pokemon>'",
 			callback:    commandCatch,
+		},
+		"inspect": {
+			name:        "inspect",
+			description: "Inspect a caught Pokemon, by using 'inspect <Pokemon>'",
+			callback:    commandInspect,
 		},
 		"exit": {
 			name:        "exit",
