@@ -10,6 +10,7 @@ import (
 )
 
 type config struct {
+	caughtPokemon    map[string]pokeapi.Pokemon
 	pokeapiClient    pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string

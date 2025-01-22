@@ -17,7 +17,6 @@ func commandCatch(cfg *config, args ...string) error {
 	}
 
 	name := args[0]
-
 	fmt.Printf("Throwing a Pokeball at %s...\n", name)
 
 	pokemon, err := cfg.pokeapiClient.GetPokemon(name)
@@ -30,14 +29,16 @@ func commandCatch(cfg *config, args ...string) error {
 	catchPosibility := basePossibility * (1 - difficulty)
 
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
 	roll := r.Float64()
 
 	if roll < catchPosibility {
-		cfg.pokeapiClient.Registry[name] = pokemon
-		fmt.Println(name, "was caught!")
-	} else {
 		fmt.Println(name, "escaped!")
+		return nil
 	}
+
+	fmt.Println(pokemon.Name, "was caught!")
+	cfg.caughtPokemon[pokemon.Name] = pokemon
 
 	return nil
 }
