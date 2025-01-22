@@ -15,18 +15,21 @@ func commandInspect(cfg *config, args ...string) error {
 	}
 
 	name := args[0]
-	if pokemon, caught := cfg.caughtPokemon[name]; caught {
-		fmt.Println("Name:", pokemon.Name)
-		fmt.Println("Height:", pokemon.Height)
-		fmt.Println("Weight:", pokemon.Weight)
-		fmt.Println("Stats:")
-		for _, stat := range pokemon.Stats {
-			fmt.Printf("  -%s: %d\n", stat.Stat.Name, stat.BaseStat)
-		}
-		fmt.Println("Types:")
-		for _, pokemonType := range pokemon.Types {
-			fmt.Println("  -", pokemonType.Type.Name)
-		}
+	pokemon, ok := cfg.caughtPokemon[name]
+	if !ok {
+		return errors.New("you have not caught that Pokemon")
+	}
+
+	fmt.Println("Name:", pokemon.Name)
+	fmt.Println("Height:", pokemon.Height)
+	fmt.Println("Weight:", pokemon.Weight)
+	fmt.Println("Stats:")
+	for _, stat := range pokemon.Stats {
+		fmt.Printf("  -%s: %d\n", stat.Stat.Name, stat.BaseStat)
+	}
+	fmt.Println("Types:")
+	for _, pokemonType := range pokemon.Types {
+		fmt.Println("  -", pokemonType.Type.Name)
 	}
 
 	return nil
